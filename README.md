@@ -1,9 +1,11 @@
 # AidWay
 #### *Track Your Help*
-
+<div style="display :flex; flex-direction:row">
 <img src="assets/animation/logo.gif" width="200"/>
 <img src="assets/animation/aideway.gif" 
 width="200" height="200"/>
+</div>
+
 
 ## Table of Contents
 - [About](#about)
