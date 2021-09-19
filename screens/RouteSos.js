@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, LogBox, FlatList, SafeAreaView } from "react-native";
+import { StyleSheet, Dimensions, ScrollView, Image, ImageBackground, LogBox, ToastAndroid, SafeAreaView } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 import Icon1 from "../components/Icon";
 import Input1 from "../components/Input";
@@ -46,15 +46,23 @@ export default function Route(props) {
 	const submitHandler = () => {
 		const db = firebase.firestore();
 		const sos = db.collection("sosRequest").doc(props.route.params._id.toString());
+		let arr = [];
+		for (let i = 0; i < selectedItems.length; i++) {
+			arr.push(selectedItems[i].email);
+		}
 		sos.get().then((doc) => {
 			let obj = doc.data();
-			obj["isAssigned"] = false;
+			obj["isAssigned"] = true;
 			obj["id"] = generateId(10);
 			obj["isComplete"] = false;
 			obj["emergency"] = true;
-			obj["department"] = selectedItems;
+			obj["department"] = arr;
 			delete obj["selectedEmergency"];
-			console.log(obj);
+			sos.update({
+				isAssigned: true,
+			});
+			db.collection("TrackOrder").add(obj);
+			ToastAndroid.show("Successfully Assigned", ToastAndroid.LONG);
 		});
 	};
 	const getDepartment = async () => {
@@ -66,7 +74,9 @@ export default function Route(props) {
 			.get()
 			.then((query) => {
 				query.forEach((doc) => {
-					arr.push(doc.data());
+					let obj = doc.data();
+					obj["email"] = doc.id;
+					arr.push(obj);
 				});
 			});
 		setService(arr);
@@ -84,7 +94,6 @@ export default function Route(props) {
 		});
 	}, []);
 	return (
-		// <ScrollView>
 		<Block flex>
 			<ImageBackground source={Images.Onboarding} style={styles.profileContainer} imageStyle={styles.profileBackground}>
 				<Block flex>
@@ -223,7 +232,6 @@ export default function Route(props) {
 				</Block>
 			</ImageBackground>
 		</Block>
-		// </ScrollView>
 	);
 }
 
@@ -284,11 +292,10 @@ const styles = StyleSheet.create({
 		height: thumbMeasure,
 	},
 	title: {
-		paddingBottom: theme.SIZES.BASE,
 		paddingHorizontal: theme.SIZES.BASE * 2,
-		marginTop: 44,
+		marginTop: 34,
 		color: argonTheme.COLORS.HEADER,
-		fontSize: 22,
+		fontSize: 18,
 	},
 	group: {
 		paddingTop: theme.SIZES.BASE * 2,

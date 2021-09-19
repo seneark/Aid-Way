@@ -22,7 +22,7 @@ const { width, height } = Dimensions.get("screen");
 
 const User = ({ navigation }) => {
 	const [incompleteTodo, setIncompleteTodo] = useState([]);
-	const [completeTodo, setCompleteTodo] = useState([]);
+	const [sos, setSos] = useState([]);
 	const [refreshing, setRefreshing] = React.useState(false);
 	const wait = (timeout) => {
 		return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -39,7 +39,7 @@ const User = ({ navigation }) => {
 	const getData = () => {
 		const db = firebase.firestore();
 		setIncompleteTodo([]);
-		setCompleteTodo([]);
+		setSos([]);
 		const req = db
 			.collection("TrackOrder")
 			.where("email", "==", firebase.auth().currentUser.email.toString())
@@ -50,6 +50,19 @@ const User = ({ navigation }) => {
 				arrIn.push(doc.data());
 			});
 			setIncompleteTodo(arrIn);
+		});
+
+		const sos = db
+			.collection("sosRequest")
+			.where("email", "==", firebase.auth().currentUser.email.toString())
+			.where("isAssigned", "==", false);
+
+		sos.get().then(async (query) => {
+			let arr = [];
+			await query.forEach((doc) => {
+				arr.push(doc.data());
+			});
+			setSos(arr);
 		});
 	};
 	useEffect(() => {
@@ -83,6 +96,30 @@ const User = ({ navigation }) => {
 						) : (
 							<Block center>
 								<Text>There are no pending Cases</Text>
+							</Block>
+						)}
+					</View>
+					<Text />
+					<Text />
+					<Text style={styles.title}>SOS Requests</Text>
+					<View style={styles.content}>
+						{sos.length > 0 ? (
+							<View style={styles.list}>
+								<FlatList
+									data={sos}
+									renderItem={({ item }) => (
+										<TodoItem
+											item={item}
+											pressHandler={() => {
+												pressHandler(item);
+											}}
+										/>
+									)}
+								/>
+							</View>
+						) : (
+							<Block center>
+								<Text>There are no SOS Cases</Text>
 							</Block>
 						)}
 					</View>
