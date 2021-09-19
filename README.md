@@ -14,7 +14,7 @@ width="200" height="200"/>
 ## App Demo
 [Click Here to Watch Video](https://drive.google.com/file/d/1DSGniAYC2yWfps1rZn2aIZfeTROko2ru/view)
 
-[Click Here to See the Presentation](https://docs.google.com/presentation/d/1fzs7chwxXeJ7-7yVS1UCUKAEZSwL-tgmTNFJjf-MN1g/edit#slide=id.ged50f017b8_0_170)
+[Click Here to See the Presentation](https://docs.google.com/presentation/d/1fzs7chwxXeJ7-7yVS1UCUKAEZSwL-tgmTNFJjf-MN1g/edit?usp=sharing)
 
 [Click Here To Download APK](https://drive.google.com/file/d/1CrbaSO-UA-pENRY_0aGMtg6XZOMW-RAN/view?usp=sharing)
 
