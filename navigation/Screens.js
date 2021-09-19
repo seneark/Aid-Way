@@ -213,7 +213,7 @@ function HomeStack(props) {
 				name="EmergencyDash"
 				component={EmergencyDash}
 				options={{
-					header: ({ navigation, scene }) => <Header title="Track Safety" navigation={navigation} scene={scene} />,
+					header: ({ navigation, scene }) => <Header title="Emergency Dash" navigation={navigation} scene={scene} />,
 					cardStyle: { backgroundColor: "#F8F9FE" },
 				}}
 			/>
@@ -246,7 +246,7 @@ function HomeStack(props) {
 				name="Route"
 				component={Route}
 				options={{
-					header: ({ navigation, scene }) => <Header title="Track Safety" navigation={navigation} scene={scene} />,
+					header: ({ navigation, scene }) => <Header title="Route" navigation={navigation} scene={scene} />,
 					cardStyle: { backgroundColor: "#F8F9FE" },
 				}}
 			/>

@@ -83,7 +83,7 @@ class Header extends React.Component {
 					<BellButton key="chat-search" navigation={navigation} isWhite={white} />,
 					<BasketButton key="basket-search" navigation={navigation} isWhite={white} />,
 				];
-			case "Track Safety":
+			case "Route":
 				return [<BellButton key="chat-search" navigation={navigation} isWhite={white} />];
 			default:
 				break;
