@@ -26,7 +26,7 @@ The Features of our App are as follows:
 
 
 ## How to View this App
-1. Install [Expo Client App](https://play.google.com/store/apps/details?id=host.exp.exponent) on ypur mobile device.
+1. Install [Expo Client App](https://play.google.com/store/apps/details?id=host.exp.exponent) on your mobile device.
 2. Visit [this url](https://expo.dev/@senear/track-your-help) to scan the QR Code using Expo App.
 3. Now Wait for the resources to download.
 4. Finally Register yourself and then Login with your respective account
