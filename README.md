@@ -23,7 +23,7 @@ The Features of our App are as follows:
 - After assigning the authority working there would assign the available and ready personnel to the crime/ emergency site and activate the distress call.
 - After that both victim and emergency personnel can track each other location through a map show on their screens.
 
-
+<img src="assets/imgs/screenshots.png" />
 
 ## How to View this App
 1. Install [Expo Client App](https://play.google.com/store/apps/details?id=host.exp.exponent) on your mobile device.
