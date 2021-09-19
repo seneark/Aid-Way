@@ -12,8 +12,9 @@ width="200" height="200"/>
 - [How to View This App](#how-to-view-this-app)
 
 ## App Demo
-[Click Here to Watch Video](https://drive.google.com/file/d/1wj1Tgwz1l3Ut9xOQCI70xGcFJ4233SS_/view) \
+[Click Here to Watch Video](https://drive.google.com/file/d/1DSGniAYC2yWfps1rZn2aIZfeTROko2ru/view) \
 [Click Here to See the Presentation](https://docs.google.com/presentation/d/1fzs7chwxXeJ7-7yVS1UCUKAEZSwL-tgmTNFJjf-MN1g/edit#slide=id.ged50f017b8_0_170)
+[Click Here To Download APK](https://drive.google.com/file/d/1CrbaSO-UA-pENRY_0aGMtg6XZOMW-RAN/view?usp=sharing)
 
 ## About
 Aidway provides an easy to use method for the victims to contact an emergency service and then track how far this help is from them. As soon as the victim sends a distress call, it is redirected to the currently functioning emergency call centre of India.
