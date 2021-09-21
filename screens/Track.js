@@ -65,11 +65,7 @@ export default class Track extends React.Component {
 			this.setState({ refreshing: false });
 		});
 	};
-	getTrack() {
-		this.setState({
-			distance_time: [],
-			location_other: [],
-		});
+	getTrack = async () => {
 		const db = firebase.firestore();
 		const rdb = firebase.database();
 		db.collection("userInfo")
@@ -89,6 +85,10 @@ export default class Track extends React.Component {
 				await querySnapshot.forEach(async (doc) => {
 					if (doc.data().email != firebase.auth().currentUser.email.toString()) {
 						await rdb.ref("/location " + doc.data().phone).on("value", async (snapshot) => {
+							await this.setState({
+								distance_time: [],
+								location_other: [],
+							});
 							if (snapshot.val()) {
 								let obj = {};
 								obj["info"] = doc.data();
@@ -103,7 +103,7 @@ export default class Track extends React.Component {
 									longitudeDelta: LongDelta,
 								});
 								let url =
-									"https://apis.mapmyindia.com/advancedmaps/v1/66531ff291938b704ed43d9149ddc8c8/distance_matrix_eta/driving/";
+									"https://apis.mapmyindia.com/advancedmaps/v1/d8beeae992a2a8cc21119da10d5fedbd/distance_matrix/driving/";
 								url +=
 									this.state.location.longitude.toString() +
 									"," +
@@ -112,32 +112,41 @@ export default class Track extends React.Component {
 									snapshot.val().location.longitude.toString() +
 									"," +
 									snapshot.val().location.latitude.toString();
-								axios.get(url).then((data) => {
-									let dist = data.data.results.distances[0][1];
-									let time = data.data.results.durations[0][1];
-									let dist_str = "";
-									let time_str = "";
-									if (dist >= 1000) {
-										dist_str =
-											parseInt(dist / 1000).toString() + " Km " + parseInt(dist % 1000).toString() + " m";
-									} else {
-										dist_str = (dist % 1000).toString() + " m";
-									}
-									if (time >= 60) {
-										time_str =
-											parseInt(time / 60).toString() + " min " + parseInt(time % 60).toString() + " sec";
-									} else {
-										time_str = (time % 60).toString() + " sec";
-									}
-									let junk = this.state.distance_time;
-									junk.push({
-										distance: dist_str,
-										time: time_str,
-									});
-									this.setState({
-										distance_time: junk,
-									});
-								});
+								axios
+									.get(url)
+									.then((data) => {
+										let dist = data.data.results.distances[0][1];
+										let time = data.data.results.durations[0][1];
+										let dist_str = "";
+										let time_str = "";
+										if (dist >= 1000) {
+											dist_str =
+												parseInt(dist / 1000).toString() +
+												" Km " +
+												parseInt(dist % 1000).toString() +
+												" m";
+										} else {
+											dist_str = (dist % 1000).toString() + " m";
+										}
+										if (time >= 60) {
+											time_str =
+												parseInt(time / 60).toString() +
+												" min " +
+												parseInt(time % 60).toString() +
+												" sec";
+										} else {
+											time_str = (time % 60).toString() + " sec";
+										}
+										let junk = this.state.distance_time;
+										junk.push({
+											distance: dist_str,
+											time: time_str,
+										});
+										this.setState({
+											distance_time: junk,
+										});
+									})
+									.catch((err) => console.log(err));
 								arr.push(obj);
 							}
 						});
@@ -290,7 +299,7 @@ export default class Track extends React.Component {
 		// 			}
 		// 		});
 		// 	});
-	}
+	};
 	handleAppStateChange = (nextAppState) => {
 		if (this.state.appState.match(/inactive|background/) && nextAppState === "active") {
 			console.log("App has come to the foreground!");
@@ -310,7 +319,7 @@ export default class Track extends React.Component {
 			let location = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.Balanced,
-					timeInterval: 50000,
+					timeInterval: 5000,
 					distanceInterval: 0,
 				},
 				async (newLocation) => {
@@ -404,20 +413,24 @@ export default class Track extends React.Component {
 					<Text />
 
 					<Block middle center>
-						{this.state.location_other.length > 0 && this.state.distance_time.length > 0 ? (
-							this.state.location_other.map((item, idx) => {
-								return (
-									<Block key={idx}>
-										<Card
-											title={item.info.name}
-											caption={this.state.distance_time[idx].time}
-											style={styles.card}
-											location={this.state.distance_time[idx].distance}
-											avatar={"https://robohash.org/" + item.info.name}
-										/>
-									</Block>
-								);
-							})
+						{this.state.location_other.length > 0 ? (
+							this.state.distance_time.length > 0 ? (
+								this.state.location_other.map((item, idx) => {
+									return (
+										<Block key={idx}>
+											<Card
+												title={item.info.name}
+												caption={this.state.distance_time[idx].time}
+												style={styles.card}
+												location={this.state.distance_time[idx].distance}
+												avatar={"https://robohash.org/" + item.info.name}
+											/>
+										</Block>
+									);
+								})
+							) : (
+								<Text>Loading</Text>
+							)
 						) : (
 							<Text>Official Hasn't been assigned yet</Text>
 						)}

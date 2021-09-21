@@ -1,27 +1,37 @@
 {
-	"expo": {
-		"name": "AidWay",
-		"slug": "track-your-help",
-		"privacy": "public",
-		"platforms": ["ios", "android"],
-		"version": "1.7.1",
-		"orientation": "portrait",
-		"icon": "./assets/logo.png",
-		"splash": {
-			"image": "./assets/map.png",
-			"resizeMode": "contain",
-			"backgroundColor": "#E4E4E3"
-		},
-		"updates": {
-			"fallbackToCacheTimeout": 0
-		},
-		"assetBundlePatterns": ["**/*"],
-		"ios": {
-			"supportsTablet": true
-		},
-		"android": {
-			"permissions": ["ACCESS_BACKGROUND_LOCATION"]
-		},
-		"description": "Aid Way, where you can track your help on a map"
-	}
+  "expo": {
+    "name": "AidWay",
+    "slug": "track-your-help",
+    "privacy": "public",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "2.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo.png",
+    "splash": {
+      "image": "./assets/map.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#E4E4E3"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.ptb.aidway",
+      "versionCode": 2,
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION"
+      ]
+    },
+    "description": "Aid Way, where you can track your help on a map",
+    "githubUrl": "https://github.com/seneark/Aid-Way"
+  }
 }
