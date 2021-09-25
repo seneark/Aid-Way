@@ -102,21 +102,42 @@ export default class Track extends React.Component {
 									latitudeDelta: LatDelta,
 									longitudeDelta: LongDelta,
 								});
-								let url =
-									"https://apis.mapmyindia.com/advancedmaps/v1/d8beeae992a2a8cc21119da10d5fedbd/distance_matrix/driving/";
+								let url = "https://router.hereapi.com/v8/routes?transportMode=car&origin=";
 								url +=
-									this.state.location.longitude.toString() +
-									"," +
 									this.state.location.latitude.toString() +
-									";" +
-									snapshot.val().location.longitude.toString() +
 									"," +
-									snapshot.val().location.latitude.toString();
+									this.state.location.longitude.toString() +
+									"&destination=" +
+									snapshot.val().location.latitude.toString() +
+									"," +
+									snapshot.val().location.longitude.toString() +
+									"&return=summary";
+								// console.log(url)
+								
+								// url =
+								// 	"https://apis.mapmyindia.com/advancedmaps/v1/d8beeae992a2a8cc21119da10d5fedbd/distance_matrix/driving/";
+								// url +=
+								// 	this.state.location.longitude.toString() +
+								// 	"," +
+								// 	this.state.location.latitude.toString() +
+								// 	";" +
+								// 	snapshot.val().location.longitude.toString() +
+								// 	"," +
+								// 	snapshot.val().location.latitude.toString();
+								let token =
+									"eyJhbGciOiJSUzUxMiIsImN0eSI6IkpXVCIsImlzcyI6IkhFUkUiLCJhaWQiOiJaTmpLaUREUGN3Z3l2UEFVMnNHSSIsImlhdCI6MTYzMjU3OTg5MywiZXhwIjoxNjMyNjY2MjkzLCJraWQiOiJqMSJ9.ZXlKaGJHY2lPaUprYVhJaUxDSmxibU1pT2lKQk1qVTJRMEpETFVoVE5URXlJbjAuLmlob2xLRlBPcXdHV2JLTERNYzgxSEEub3BzTFpsQ3ZWNlI0WWpDdTVYSkgxSFl3Q1ZDRnA1ck5fM2prQXpqNFdZTVRyOF9SRXlEeFNqSGh1U1RjTkE0N3FfYlZWV3Z2RnlHVWNEdkJpV09fSmJIWF82ZzhVeHFmMkZBRm5xMy1oWnFlZEd3V0cwU0FtMGtHTjFRZC1wa0IyQVloa3FWM21xd2tDVXJoWS1OZjZBLk12X0c4VWJ2V1dpVnlyRS1vcmdIYU9jcGpkcmd0ZlhxY0R2Wk92TFJzOG8.OWG6FTxsUOHTwSe_XyizcBaT1UkoNujIYlKO9DhA8P0W4viiFQy7KE6hnQ8jtcx-ZGGYCOoDdvxiAJj4M1V8C_cMunuP6JMlJIk6RqFYoIS8uT23P2csN_isH3aYpfH8rH9c4mvkx08fUxt1bjdglJ9lPTI1rrJzJ4-T8pOnNwMQIi8pAQ7oxUrro-p-qQfSv-vK6qdhbJTTa5IB6F1Aj0HpNey3PmZ-3En6GGzXkBHAjmBRa3LchzPkq0Kf7W4uLSC4qQjmV4O3_FqkDB7zaRdcw-jyn9Q4fjn9QDjj7dglgcqHhJ2BhHR9zn08ImeEj3dPNfUo4BBsUuqwkIp07A";
+								const config = {
+									headers: { Authorization: `Bearer ${token}` },
+								};
+								const bodyParameters = {
+									key: "value",
+								};
 								axios
-									.get(url)
+									.get(url, config)
 									.then((data) => {
-										let dist = data.data.results.distances[0][1];
-										let time = data.data.results.durations[0][1];
+										// console.log(data.data.routes[0].sections[0].summary);
+										let dist = data.data.routes[0].sections[0].summary.length;
+										let time = data.data.routes[0].sections[0].summary.duration;
 										let dist_str = "";
 										let time_str = "";
 										if (dist >= 1000) {
@@ -319,7 +340,7 @@ export default class Track extends React.Component {
 			let location = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.Balanced,
-					timeInterval: 50000,
+					timeInterval: 5000,
 					distanceInterval: 0,
 				},
 				async (newLocation) => {
