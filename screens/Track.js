@@ -319,7 +319,7 @@ export default class Track extends React.Component {
 			let location = await Location.watchPositionAsync(
 				{
 					accuracy: Location.Accuracy.Balanced,
-					timeInterval: 5000,
+					timeInterval: 50000,
 					distanceInterval: 0,
 				},
 				async (newLocation) => {
@@ -432,7 +432,7 @@ export default class Track extends React.Component {
 								<Text>Loading</Text>
 							)
 						) : (
-							<Text>Official Hasn't been assigned yet</Text>
+							<Text>Loading</Text>
 						)}
 					</Block>
 				</ScrollView>

@@ -27,6 +27,7 @@ import EmergencyPerson from "../screens/EmergencyPerson";
 import EmergencyDetails from "../screens/EmergencyDetails";
 import Track from "../screens/Track";
 import User from "../screens/User";
+import Maps from "../screens/Maps";
 
 // drawer
 import CustomDrawerContent from "./Menu";
@@ -290,7 +291,20 @@ export default function OnboardingStack(props) {
 		</Stack.Navigator>
 	);
 }
-
+function MapStack(props) {
+	return (
+		<Stack.Navigator mode="card" headerMode="screen">
+			<Stack.Screen
+				name="Maps"
+				component={Maps}
+				options={{
+					header: ({ navigation, scene }) => <Header title="Maps" navigation={navigation} scene={scene} />,
+					cardStyle: { backgroundColor: "#F8F9FE" },
+				}}
+			/>
+		</Stack.Navigator>
+	);
+}
 function AppStack(props) {
 	return (
 		<Drawer.Navigator
@@ -328,7 +342,7 @@ function AppStack(props) {
 			<Drawer.Screen name="Elements" component={ElementsStack} />
 			<Drawer.Screen name="Articles" component={ArticlesStack} />
 			<Drawer.Screen name="Route" component={DashboardStack} />
-			{/* <Drawer.Screen name="Track" component={TrackStack} /> */}
+			<Drawer.Screen name="Maps" component={MapStack} />
 		</Drawer.Navigator>
 	);
 }

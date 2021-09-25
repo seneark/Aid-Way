@@ -13,6 +13,7 @@ function CustomDrawerContent({ drawerPosition, navigation, profile, focused, sta
   const screens = [
     "Home", 
     "Account",
+    "Maps"
   ];
   return (
     <Block

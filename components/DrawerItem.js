@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity, Linking } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 
+
 import Icon from "./Icon";
 import argonTheme from "../constants/Theme";
 
@@ -30,6 +31,10 @@ class DrawerItem extends React.Component {
 				return (
 					<Icon name="account-circle" family="MaterialIcons" size={20} color={focused ? "white" : argonTheme.COLORS.INFO} />
 				);
+				case "Maps":
+					return (
+						<Icon name="map" family="Foundation" size={20} color={focused ? "white" : argonTheme.COLORS.INFO} />
+					);
 			// 	case "EmergencyDash":
 			// 		return (
 			// 			<Icon name="warning" family="Entypo" size={18} color={focused ? "white" : argonTheme.COLORS.WARNING} />
